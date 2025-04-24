@@ -18,6 +18,7 @@
   "author": "Daeinc",
   "description": "",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/async": "^3.2.24",
     "@types/node": "^20.14.12",
     "tsup": "^8.2.3",
