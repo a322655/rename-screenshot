@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { yellow } from "kleur/colors";
+import { OllamaProvider } from "./providers/OllamaProvider";
 import { OpenAIProvider } from "./providers/OpenAIProvider";
 import type { ScreenshotRenamer } from "./providers/ScreenshotRenamer";
 import type { Config, Options, ProviderOptions } from "./types";
@@ -35,6 +36,22 @@ export function initializeProvider(
 				console.error(`Error initializing OpenAI provider: ${error.message}`);
 			} else {
 				console.error("Unknown error initializing OpenAI provider");
+			}
+			process.exit(1);
+		}
+	} else if (providerOpt === "ollama") {
+		try {
+			renamer = new OllamaProvider(
+				providerConfig,
+				config.finalPrompt || "", // Use the same final prompt
+				config.categories || {},
+			);
+			return renamer;
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(`Error initializing Ollama provider: ${error.message}`);
+			} else {
+				console.error("Unknown error initializing Ollama provider");
 			}
 			process.exit(1);
 		}
