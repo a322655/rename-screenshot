@@ -113,13 +113,22 @@ export const renameFile = async (
 };
 
 /**
- * Converts the default Mac screenshot filename to YYMMDD format date string.
- * NOTE: Not tested for different formatting system (ex. Asia, Europe)
- * @param filename - Original Mac screenshot filename
- * @returns
+ * Gets the date from a file in YYYY-MM-DD format using file creation date
+ * @param filePath - Full path to the file
+ * @returns Date string in YYYY-MM-DD format
  */
-export const getDateFromScreenshot = (filename: string) => {
-	return (filename.match(/(\d{4})-(\d{2})-(\d{2})/) || [])
-		.slice(1)
-		.reduce((acc, str) => (acc ? `${acc}${str}` : `${str.slice(2)}`), "");
+export const getDateFromScreenshot = (filePath: string) => {
+	try {
+		const stats = fs.statSync(filePath);
+		const creationDate = new Date(stats.birthtime);
+
+		const year = creationDate.getFullYear().toString(); // Get full year
+		const month = String(creationDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+		const day = String(creationDate.getDate()).padStart(2, "0");
+
+		return `${year}-${month}-${day}`;
+	} catch (error) {
+		console.error(`Error getting file creation date: ${error}`);
+		return "";
+	}
 };
