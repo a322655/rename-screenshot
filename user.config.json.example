@@ -1,4 +1,10 @@
 {
+  "detail": "low",
+  "provider": "ollama",
+  "watchdir": null,
+  "outdir": null,
+  "prompt": "Suggest a short and concise file name in 1-3 words.\nIf you can identify the software or website being used, add that as part of the new name.\nFor example, terminal, youtube, photoshop, etc.\nDo not include file extension such as .png, .jpg or .txt. Use dash to connect words.",
+  "fileNameRegex": "/^Screenshot.*\\.png$/i",
   "categories": {
     "code": "the majority of the text is computer code",
     "reference": "the image is a photograph",
