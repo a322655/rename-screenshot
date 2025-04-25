@@ -54,14 +54,5 @@ export function parseCliOptions(config: Config): Options {
 		process.exit(1);
 	}
 
-	// Function Calling support check - currently only for OpenAI
-	if (providerOpt === "ollama") {
-		console.error(
-			"Ollama provider is not currently supported for Function Calling.",
-		);
-		console.error("Please use --provider openai");
-		process.exit(1);
-	}
-
 	return opts;
 }
